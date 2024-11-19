@@ -11,7 +11,7 @@ export default class News extends Component {
         pageSize: 8,
         category: 'general'
     }
-    
+
 
     static propTypes = {
         country: PropTypes.string,
@@ -67,21 +67,22 @@ export default class News extends Component {
             <div className="container my-3">
                 <h2 className='text-center'>NewsMonkey - Top Headlines</h2>
                 {this.state.loading ? (
-                    <Spinner/>
+                    <Spinner />
                 ) : (
                     <div className="d-flex flex-row flex-wrap justify-content-center">
-                        {this.state.articles.map((article) => (
+                        {this.state.articles?.map((article) => (
                             <NewsItem
                                 key={article.url}
                                 title={article.title?.slice(0, 45) || "No Title Available"}
                                 description={article.description?.slice(0, 88) || "No Description Available"}
-                                imageUrl={article?.urlToImage || 'https://as1.ftcdn.net/v2/jpg/02/43/70/42/1000_F_243704249_ulKzLuknUin9WGaCkG0TiSjAVCLZ5h4p.jpg'}
+                                imageUrl={article.urlToImage || 'https://as1.ftcdn.net/v2/jpg/02/43/70/42/1000_F_243704249_ulKzLuknUin9WGaCkG0TiSjAVCLZ5h4p.jpg'}
                                 newsUrl={article.url}
                                 author={article.author || "Unknown Author"}
-                                date={new Date(article.publishedAt).toGMTString() || "Unknown Date"}
-                                source={article.source.name}
+                                date={article.publishedAt ? new Date(article.publishedAt).toGMTString() : "Unknown Date"}
+                                source={article.source?.name || "Unknown Source"}
                             />
                         ))}
+
                     </div>
                 )}
                 <div className="d-flex justify-content-between">
